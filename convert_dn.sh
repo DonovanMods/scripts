@@ -75,7 +75,7 @@ for ZIP in *.zip; do
     done
     wait # for all backgrounded _convert_to_webp processes to finish
     cd ..
-    echo "Converted $(ls "$DIR"/*.webp | wc -l) images"
+    echo "Converted $(ls "$DIR"/*.webp | wc -l) images" | tee -a $LOGFILE
     echo "Zipping $DIR" | tee -a $LOGFILE
     zip -q -r "webp/$DIR.webp.zip" "$DIR" && unzip -tq "webp/$DIR.webp.zip" && rm -rf "$DIR" "$ZIP" || echo "Failed to Zip $DIR" | tee -a $LOGFILE
   else
@@ -85,5 +85,5 @@ for ZIP in *.zip; do
   fi
 done
 
-echo "Converted $(ls webp/*.zip | wc -l) ZIP files to webp"
+echo "Converted $(ls webp/*.zip | wc -l) ZIP files to webp" | tee -a $LOGFILE
 echo "Completed Processing at $(date)" | tee -a $LOGFILE
